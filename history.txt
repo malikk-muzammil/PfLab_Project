@@ -1,0 +1,224 @@
+Q: Who discovered America in 1492 (credited historically)?
+A) Christopher Columbus
+B) Ferdinand Magellan
+C) Vasco da Gama
+D) James Cook
+ANSWER: A
+DIFF: E
+---
+Q: In which year did World War I begin?
+A) 1914
+B) 1918
+C) 1939
+D) 1945
+ANSWER: A
+DIFF: E
+---
+Q: Who was the first President of the United States?
+A) Abraham Lincoln
+B) George Washington
+C) Thomas Jefferson
+D) John Adams
+ANSWER: B
+DIFF: E
+---
+Q: Which ancient civilization built the pyramids?
+A) Romans
+B) Greeks
+C) Egyptians
+D) Aztecs
+ANSWER: C
+DIFF: E
+---
+Q: The Renaissance began in which country?
+A) France
+B) Italy
+C) Spain
+D) England
+ANSWER: B
+DIFF: M
+---
+Q: Who led India to independence through nonviolent protest?
+A) Jawaharlal Nehru
+B) Mahatma Gandhi
+C) Bhagat Singh
+D) Subhas Chandra Bose
+ANSWER: B
+DIFF: M
+---
+Q: What was the main language of the Roman Empire?
+A) Greek
+B) Latin
+C) French
+D) English
+ANSWER: B
+DIFF: M
+---
+Q: Which empire was ruled by Genghis Khan?
+A) Ottoman Empire
+B) Mongol Empire
+C) Roman Empire
+D) Persian Empire
+ANSWER: B
+DIFF: M
+---
+Q: The French Revolution began in which year?
+A) 1789
+B) 1804
+C) 1776
+D) 1815
+ANSWER: A
+DIFF: H
+---
+Q: Who was known as the "Iron Lady"?
+A) Golda Meir
+B) Indira Gandhi
+C) Margaret Thatcher
+D) Angela Merkel
+ANSWER: C
+DIFF: M
+---
+Q: Which war was fought between the North and South regions in the USA?
+A) World War I
+B) Civil War
+C) Revolutionary War
+D) Korean War
+ANSWER: B
+DIFF: E
+---
+Q: Which caliph is known as the first Caliph after Prophet Muhammad (PBUH)?
+A) Ali ibn Abi Talib
+B) Uthman ibn Affan
+C) Umar ibn al-Khattab
+D) Abu Bakr Siddiq
+ANSWER: D
+DIFF: H
+---
+Q: The Silk Road was primarily used for trading between which regions?
+A) Europe and Africa
+B) Asia and the Middle East
+C) Asia and Europe
+D) North and South America
+ANSWER: C
+DIFF: H
+---
+Q: Which document declared the independence of the United States?
+A) Magna Carta
+B) Declaration of Independence
+C) Treaty of Paris
+D) Constitution
+ANSWER: B
+DIFF: E
+---
+Q: Who was the last Mughal emperor in India?
+A) Akbar II
+B) Bahadur Shah II
+C) Aurangzeb
+D) Shah Jahan
+ANSWER: B
+DIFF: H
+---
+Q: Which city was divided by the Berlin Wall?
+A) Paris
+B) Rome
+C) Berlin
+D) Warsaw
+ANSWER: C
+DIFF: M
+---
+Q: Which explorer circumnavigated the globe first?
+A) Christopher Columbus
+B) Ferdinand Magellan (expedition)
+C) Vasco da Gama
+D) James Cook
+ANSWER: B
+DIFF: H
+---
+Q: What was the primary cause of the Crimean War?
+A) Trade disputes
+B) Religious and territorial rivalry among major powers
+C) Discovery of resources
+D) Colonization
+ANSWER: B
+DIFF: H
+---
+Q: Which ancient city was destroyed by a volcanic eruption at Mount Vesuvius?
+A) Athens
+B) Pompeii
+C) Alexandria
+D) Carthage
+ANSWER: B
+DIFF: M
+---
+Q: Who wrote the 'I Have a Dream' speech?
+A) Malcolm X
+B) Martin Luther King Jr.
+C) Nelson Mandela
+D) Mahatma Gandhi
+ANSWER: B
+DIFF: E
+---
+Q: The Byzantine Empire was the continuation of which empire?
+A) Persian Empire
+B) Roman Empire
+C) Ottoman Empire
+D) Mongol Empire
+ANSWER: B
+DIFF: H
+---
+Q: Which event started on October 29, 1929 and led to a global economic crisis?
+A) Black Monday
+B) Black Thursday
+C) Black Tuesday (Stock Market Crash)
+D) Black Friday
+ANSWER: C
+DIFF: H
+---
+Q: Which country colonized large parts of South America in the 16th century?
+A) Portugal and Spain
+B) France and Germany
+C) England and Russia
+D) Netherlands and Sweden
+ANSWER: A
+DIFF: M
+---
+Q: Who was the leader of Nazi Germany during World War II?
+A) Benito Mussolini
+B) Adolf Hitler
+C) Winston Churchill
+D) Joseph Stalin
+ANSWER: B
+DIFF: E
+---
+Q: Which ancient structure served as a lighthouse and was one of the Seven Wonders?
+A) Great Pyramid
+B) Lighthouse of Alexandria
+C) Colossus of Rhodes
+D) Hanging Gardens
+ANSWER: B
+DIFF: H
+---
+Q: When did the Mughal Empire begin in India (approx)?
+A) 1206
+B) 1526
+C) 1707
+D) 1857
+ANSWER: B
+DIFF: H
+---
+Q: Which treaty ended World War I?
+A) Treaty of Versailles
+B) Treaty of Paris
+C) Treaty of Ghent
+D) Treaty of Utrecht
+ANSWER: A
+DIFF: H
+---
+Q: Who was the ancient Greek philosopher who taught Alexander the Great?
+A) Socrates
+B) Plato
+C) Aristotle
+D) Pythagoras
+ANSWER: C
+DIFF: M
+---

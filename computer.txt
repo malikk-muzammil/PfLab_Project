@@ -1,0 +1,224 @@
+Q: What does CPU stand for?
+A) Central Processing Unit
+B) Computer Power Unit
+C) Control Processing Unit
+D) Central Programming Unit
+ANSWER: A
+DIFF: E
+---
+Q: Which device is used to point and click on a computer screen?
+A) Keyboard
+B) Mouse
+C) Monitor
+D) Printer
+ANSWER: B
+DIFF: E
+---
+Q: Which one is an example of an output device?
+A) Microphone
+B) Keyboard
+C) Monitor
+D) Scanner
+ANSWER: C
+DIFF: E
+---
+Q: What is the primary language used for web page structure?
+A) CSS
+B) JavaScript
+C) HTML
+D) Python
+ANSWER: C
+DIFF: E
+---
+Q: How many bits are there in a byte?
+A) 2
+B) 4
+C) 8
+D) 10
+ANSWER: C
+DIFF: E
+---
+Q: Which of these is an operating system?
+A) Microsoft Word
+B) Windows
+C) Google Chrome
+D) Adobe Photoshop
+ANSWER: B
+DIFF: M
+---
+Q: Which storage is non-volatile?
+A) RAM
+B) Cache
+C) Hard Disk
+D) Registers
+ANSWER: C
+DIFF: M
+---
+Q: Which of these is a programming language?
+A) HTML
+B) CSS
+C) Java
+D) HTTP
+ANSWER: C
+DIFF: M
+---
+Q: What does "HTTP" stand for?
+A) HyperText Transfer Protocol
+B) High Transfer Text Protocol
+C) Hyperlink Text Transfer Program
+D) HyperText Transmission Process
+ANSWER: A
+DIFF: M
+---
+Q: Which of these helps protect a computer from viruses?
+A) Firewall
+B) Defragmenter
+C) Disk cleaner
+D) Notepad
+ANSWER: A
+DIFF: M
+---
+Q: What is an IP address used for?
+A) Identifying a computer on a network
+B) Storing files
+C) Increasing memory
+D) Compiling code
+ANSWER: A
+DIFF: M
+---
+Q: Which memory is fastest but smallest in size?
+A) Hard drive
+B) RAM
+C) Cache
+D) USB drive
+ANSWER: C
+DIFF: H
+---
+Q: Which number system is base-2?
+A) Decimal
+B) Binary
+C) Hexadecimal
+D) Octal
+ANSWER: B
+DIFF: H
+---
+Q: Which data structure uses FIFO order?
+A) Stack
+B) Queue
+C) Tree
+D) Graph
+ANSWER: B
+DIFF: H
+---
+Q: Which is used to style HTML pages?
+A) SQL
+B) Python
+C) CSS
+D) C++
+ANSWER: C
+DIFF: E
+---
+Q: What is the main function of a compiler?
+A) Execute programs
+B) Translate source code to machine code
+C) Edit text files
+D) Connect to the internet
+ANSWER: B
+DIFF: H
+---
+Q: Which protocol is used to securely transfer web pages?
+A) HTTP
+B) FTP
+C) SMTP
+D) HTTPS
+ANSWER: D
+DIFF: M
+---
+Q: What does BIOS stand for?
+A) Basic Input Output System
+B) Binary Input Operating System
+C) Basic Internet Operating Service
+D) Binary Input Output Script
+ANSWER: A
+DIFF: H
+---
+Q: Which device translates domain names to IP addresses?
+A) Router
+B) DNS server
+C) Switch
+D) Modem
+ANSWER: B
+DIFF: M
+---
+Q: Which of the following is cloud storage?
+A) Hard disk
+B) Google Drive
+C) RAM
+D) CPU cache
+ANSWER: B
+DIFF: E
+---
+Q: What is the primary purpose of an operating system?
+A) Write code
+B) Manage hardware and software resources
+C) Design web pages
+D) Store files online
+ANSWER: B
+DIFF: M
+---
+Q: Which loop executes a block of code until a condition becomes false?
+A) if-else
+B) switch
+C) while loop
+D) function
+ANSWER: C
+DIFF: E
+---
+Q: Which of the following is an example of secondary storage?
+A) SRAM
+B) DRAM
+C) SSD
+D) Cache
+ANSWER: C
+DIFF: M
+---
+Q: Which HTML tag is used for the largest heading?
+A) <h1>
+B) <h6>
+C) <p>
+D) <title>
+ANSWER: A
+DIFF: E
+---
+Q: What does SQL mainly work with?
+A) Images
+B) Databases
+C) Audio
+D) Video
+ANSWER: B
+DIFF: M
+---
+Q: Which term describes unwanted programs that damage computers?
+A) Apps
+B) Drivers
+C) Malware
+D) Utilities
+ANSWER: C
+DIFF: H
+---
+Q: Which is used to convert high-level code to machine code at runtime?
+A) Assembler
+B) Interpreter
+C) Compiler
+D) Linker
+ANSWER: B
+DIFF: H
+---
+Q: In networking, what is a MAC address used for?
+A) Identifying a network interface card
+B) Encrypting data
+C) Measuring speed
+D) Assigning IP addresses
+ANSWER: A
+DIFF: H
+---

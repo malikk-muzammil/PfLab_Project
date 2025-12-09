@@ -1,0 +1,216 @@
+Q: How many players are on a football (soccer) team on the field?
+A) 9
+B) 10
+C) 11
+D) 12
+ANSWER: C
+DIFF: E
+---
+Q: In cricket, how many balls are there in an over?
+A) 5
+B) 6
+C) 7
+D) 8
+ANSWER: B
+DIFF: E
+---
+Q: In tennis, what is a score of zero called?
+A) Zero
+B) Nil
+C) Love
+D) Blank
+ANSWER: C
+DIFF: E
+---
+Q: How many minutes is a standard professional football match (without extra time)?
+A) 60
+B) 70
+C) 80
+D) 90
+ANSWER: D
+DIFF: E
+---
+Q: Which country hosted the 2016 Summer Olympics?
+A) Brazil
+B) China
+C) UK
+D) Russia
+ANSWER: A
+DIFF: M
+---
+Q: Which sport uses a puck?
+A) Football
+B) Basketball
+C) Ice hockey
+D) Cricket
+ANSWER: C
+DIFF: M
+---
+Q: Which term describes three wickets taken in three consecutive balls in cricket?
+A) Century
+B) Hat-trick
+C) Double
+D) Triple
+ANSWER: B
+DIFF: M
+---
+Q: How long is one period in professional ice hockey?
+A) 20 minutes
+B) 15 minutes
+C) 30 minutes
+D) 10 minutes
+ANSWER: A
+DIFF: H
+---
+Q: Which country has won the most FIFA World Cup titles?
+A) Germany
+B) Brazil
+C) Italy
+D) Argentina
+ANSWER: B
+DIFF: H
+---
+Q: In basketball, how many points is a shot made beyond the three-point line?
+A) 1
+B) 2
+C) 3
+D) 4
+ANSWER: C
+DIFF: E
+---
+Q: Which sport is known as the "king of sports" in many countries?
+A) Tennis
+B) Football (Soccer)
+C) Basketball
+D) Baseball
+ANSWER: B
+DIFF: E
+---
+Q: Who holds the record for the most goals in a single FIFA World Cup tournament? (as of 2018)
+A) Pele
+B) Just Fontaine
+C) Miroslav Klose
+D) Ronaldo
+ANSWER: B
+DIFF: H
+---
+Q: Which event consists of four runs: sprint, long jump, shot put, and high jump?
+A) Decathlon
+B) Triathlon
+C) Heptathlon
+D) Pentathlon
+ANSWER: D
+DIFF: H
+---
+Q: Which country is famous for producing great long-distance runners?
+A) Kenya
+B) Canada
+C) Japan
+D) Australia
+ANSWER: A
+DIFF: M
+---
+Q: In which sport is the term "ace" used for an unreturned serve?
+A) Football
+B) Tennis
+C) Cricket
+D) Rugby
+ANSWER: B
+DIFF: E
+---
+Q: How many players are there in a volleyball team on the court?
+A) 4
+B) 5
+C) 6
+D) 7
+ANSWER: C
+DIFF: E
+---
+Q: Which sport uses the terms "strike" and "spare"?
+A) Golf
+B) Bowling
+C) Baseball
+D) Cricket
+ANSWER: B
+DIFF: M
+---
+Q: In which Olympic event do athletes perform routines on bars and rings?
+A) Gymnastics
+B) Swimming
+C) Track
+D) Boxing
+ANSWER: A
+DIFF: M
+---
+Q: Which country hosted the first modern Olympic Games in 1896?
+A) France
+B) Greece
+C) England
+D) USA
+ANSWER: B
+DIFF: H
+---
+Q: Which material is commonly used for modern soccer balls?
+A) Leather
+B) Synthetic leather
+C) Cotton
+D) Rubber only
+ANSWER: B
+DIFF: M
+---
+Q: How many sets are in a standard Grand Slam men's tennis match maximum?
+A) 3
+B) 4
+C) 5
+D) 2
+ANSWER: C
+DIFF: H
+---
+Q: Which player position in football is primarily responsible for scoring goals?
+A) Goalkeeper
+B) Defender
+C) Midfielder
+D) Striker
+ANSWER: D
+DIFF: E
+---
+Q: Which sport uses the term "nil" often as a score?
+A) Football (soccer)
+B) Tennis
+C) Cricket
+D) Basketball
+ANSWER: A
+DIFF: E
+---
+Q: In cricket, what is 100 runs by a single batsman called?
+A) Fifty
+B) Hundred (Century)
+C) Double
+D) Triple
+ANSWER: B
+DIFF: E
+---
+Q: Which sporting event is known as "The Grand National"?
+A) A horse race
+B) A tennis tournament
+C) A football match
+D) A cycling event
+ANSWER: A
+DIFF: M
+---
+Q: In formula racing, what does "pole position" mean?
+A) Last starting place
+B) Fastest qualifying time / first starting place
+C) Safety car position
+D) Pit stop location
+ANSWER: B
+DIFF: H
+---
+Q: Which equipment is used in baseball to hit the ball?
+A) Racket
+B) Bat
+C) Stick
+D) Club
+ANSWER: B
+DIFF: E
+---
