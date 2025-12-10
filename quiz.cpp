@@ -1,6 +1,11 @@
+// ============================================================
 // quiz.cpp
-// Quiz Game
-// Uses arrays, structs, simple loops, time(), rand(), file I/O.
+// Quiz Game Project
+// This program implements a console-based quiz game.
+// It uses arrays, structs, loops, randomization, time tracking
+// and file handling for saving/loading progress, questions,
+// logs, and high scores.
+// ============================================================
 
 #include <iostream>
 #include <fstream>
@@ -11,76 +16,92 @@
 
 using namespace std;
 
-// ---------- CONFIG ----------
-const int MAX_CATEGORIES = 5;
-const int MAX_QUESTIONS = 300; // max questions per category file we will support
-const int MAX_PLAY_QUESTIONS = 100; // safety for shuffle/replace
-const int MAX_HIGHS = 200; // max high scores read
+// ---------- CONFIG CONSTANTS ----------
 
-// filenames
+// Maximum number of quiz categories supported
+const int MAX_CATEGORIES = 5;
+
+// Maximum questions that can be loaded from a file
+const int MAX_QUESTIONS = 300;
+
+// Maximum questions that can be played in a session
+const int MAX_PLAY_QUESTIONS = 100;
+
+// Maximum number of high scores that can be read
+const int MAX_HIGHS = 200;
+
+// File names used by the program
 const string highScoreFile = "high_scores.txt";
 const string logsFile = "quiz_logs.txt";
 const string saveFile = "save_progress.txt";
 
-// categories
+// Available categories
 string categories[MAX_CATEGORIES] = { "science", "computer", "sports", "history", "iq" };
 
-// penalties and time limits (basic)
+// Penalties for wrong answers by difficulty
 int penEasy = 2;
 int penMed  = 3;
 int penHard = 5;
 
+// Time limits for each difficulty
 int timeEasy = 20;
 int timeMed  = 25;
 int timeHard = 35;
 
-// ---------- STRUCTS ----------
+// ---------- STRUCT DEFINITIONS ----------
+
+// Structure to store one quiz question
 struct Question {
-    char diff;        // 'E','M','H'
-    string text;
-    string A;
-    string B;
-    string C;
-    string D;
-    char correct;     // 'A','B','C','D'
+    char diff;        // Difficulty level: E, M, H
+    string text;      // Question text
+    string A;         // Option A
+    string B;         // Option B
+    string C;         // Option C
+    string D;         // Option D
+    char correct;     // Correct option: A, B, C, or D
 };
 
+// Structure to store lifeline usage state
 struct LifeLines {
-    bool used5050;
-    bool usedSkip;
-    bool usedReplace;
-    bool usedExtra;
+    bool used5050;    // 50/50 lifeline used or not
+    bool usedSkip;    // Skip lifeline used or not
+    bool usedReplace; // Replace lifeline used or not
+    bool usedExtra;   // Extra time lifeline used or not
 };
 
+// Structure for saving and loading game progress
 struct SaveData {
-    string playerName;
-    string categoryName;
-    char diff;
-    unsigned long seedValue;
-    int index;       // next question index to ask (0-based)
-    int score;
-    int correctCount;
-    int wrongCount;
-    LifeLines life;
+    string playerName;    // Player name
+    string categoryName;  // Selected category
+    char diff;            // Difficulty
+    unsigned long seedValue; // Random seed for shuffle
+    int index;            // Current question index
+    int score;            // Current score
+    int correctCount;     // Number of correct answers
+    int wrongCount;       // Number of wrong answers
+    LifeLines life;       // Lifeline usage state
 };
 
-// ---------- UTILS ----------
+// ---------- UTILITY FUNCTIONS ----------
+
+// Returns current time in format "YYYY-MM-DD HH:MM:SS"
 string getTimeStringSimple() {
-    // returns "YYYY-MM-DD HH:MM:SS"
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
     char buf[40];
+
     int y = t->tm_year + 1900;
     int mo = t->tm_mon + 1;
     int d = t->tm_mday;
     int hh = t->tm_hour;
     int mm = t->tm_min;
     int ss = t->tm_sec;
-    // simple formatting
+
     sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d", y, mo, d, hh, mm, ss);
     return string(buf);
 }
 
+// Checks whether a file exists or not
 bool fileExistsSimple(const string &name) {
     ifstream f(name.c_str());
     bool ok = f.good();
@@ -88,29 +109,35 @@ bool fileExistsSimple(const string &name) {
     return ok;
 }
 
-// a simple trim from left and right (beginners-friendly)
+// Trims whitespace from start and end of a string
 string simpleTrim(const string &s) {
     int i = 0;
     int j = (int)s.length() - 1;
+
     while (i <= j && isspace((unsigned char)s[i])) i++;
     while (j >= i && isspace((unsigned char)s[j])) j--;
+
     if (j < i) return "";
     return s.substr(i, j - i + 1);
 }
 
-// convert first char to uppercase
+// Converts a character to uppercase
 char upchar(char c) {
     return (char)toupper((unsigned char)c);
 }
 
-// ---------- MAKE SAMPLE FILES (if missing) ----------
+// ---------- SAMPLE FILE CREATION ----------
+
+// Creates sample category files if they are missing
 void makeSampleFilesIfMissing() {
     for (int i = 0; i < MAX_CATEGORIES; i++) {
         string fname = categories[i] + ".txt";
+
         if (!fileExistsSimple(fname)) {
             ofstream out(fname.c_str());
             if (!out) continue;
-            // two sample questions per file: one easy, one medium
+
+            // Sample easy question
             out << "Q: Sample easy question in " << categories[i] << "?" << endl;
             out << "A) Option A" << endl;
             out << "B) Option B" << endl;
@@ -120,6 +147,7 @@ void makeSampleFilesIfMissing() {
             out << "DIFF: E" << endl;
             out << "---" << endl;
 
+            // Sample medium question
             out << "Q: Sample medium question in " << categories[i] << "?" << endl;
             out << "A) Opt A" << endl;
             out << "B) Opt B" << endl;
@@ -134,11 +162,14 @@ void makeSampleFilesIfMissing() {
     }
 }
 
-// ---------- LOAD QUESTIONS FROM FILE ----------
+// ---------- QUESTION LOADING ----------
+
+// Loads questions from category file into array
 int loadQuestionsFromFile(const string &categoryName, Question qarr[], int maxQ) {
     string fname = categoryName + ".txt";
+
+    // Create sample files if file is missing
     if (!fileExistsSimple(fname)) {
-        // if missing, create sample files and try again
         makeSampleFilesIfMissing();
         if (!fileExistsSimple(fname)) return 0;
     }
@@ -151,14 +182,13 @@ int loadQuestionsFromFile(const string &categoryName, Question qarr[], int maxQ)
     bool reading = false;
     int count = 0;
 
+    // Read file line by line
     while (getline(in, line) && count < maxQ) {
         string t = simpleTrim(line);
         if (t.length() == 0) continue;
 
-        // Question line starts with "Q:" (case sensitive expected)
         if (t.size() >= 2 && t[0] == 'Q' && t[1] == ':') {
             reading = true;
-            // reset
             q.diff = 'E';
             q.text = simpleTrim(t.substr(2));
             q.A = q.B = q.C = q.D = "";
@@ -185,45 +215,48 @@ int loadQuestionsFromFile(const string &categoryName, Question qarr[], int maxQ)
             if (v.length() > 0) q.diff = upchar(v[0]);
         }
         else if (t == "---") {
-            // add question to array if it looks valid (basic check)
             if (q.text != "" && q.A != "" && q.B != "" && q.C != "" && q.D != "") {
                 qarr[count] = q;
                 count++;
             }
             reading = false;
         }
-        // else ignore unknown lines
     }
+
     in.close();
     return count;
 }
 
-// ---------- SIMPLE SHUFFLE (Fisher-Yates using rand) ----------
+// ---------- SHUFFLING ----------
+
+// Shuffles the questions using Fisher-Yates algorithm
 void simpleShuffle(Question arr[], int n) {
-    // srand should be set by caller (seed value produced earlier)
     for (int i = n - 1; i > 0; i--) {
         int j = rand() % (i + 1);
-        // swap arr[i] and arr[j]
         Question temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
 }
 
-// ---------- HIGHSCORE: save and show ----------
+// ---------- HIGH SCORE FUNCTIONS ----------
+
+// Saves a high score to file
 void saveHighScore(const string &name, int sc) {
     ofstream out(highScoreFile.c_str(), ios::app);
     if (!out) return;
+
     out << name << "|" << sc << "|" << getTimeStringSimple() << endl;
     out.close();
 }
 
-// read highs into arrays, then simple selection sort to show top 5
+// Displays top 5 high scores
 void showHighScoresSimple() {
     if (!fileExistsSimple(highScoreFile)) {
         cout << "No scores yet." << endl;
         return;
     }
+
     ifstream in(highScoreFile.c_str());
     if (!in.is_open()) {
         cout << "Cannot open high scores." << endl;
@@ -237,39 +270,35 @@ void showHighScoresSimple() {
     int count = 0;
 
     while (getline(in, line) && count < MAX_HIGHS) {
-        // expect name|score|time
-        int p1 = -1;
-        int p2 = -1;
+        int p1 = -1, p2 = -1;
+
         for (int i = 0; i < (int)line.length(); i++) {
             if (line[i] == '|' && p1 == -1) { p1 = i; continue; }
             if (line[i] == '|' && p1 != -1) { p2 = i; break; }
         }
+
         if (p1 == -1 || p2 == -1) continue;
+
         names[count] = line.substr(0, p1);
         string scs = line.substr(p1 + 1, p2 - p1 - 1);
         times[count] = line.substr(p2 + 1);
-        int s = 0;
-        // safe stoi
-        bool ok = true;
-        for (int i = 0; i < (int)scs.length(); i++) {
-            if (!isdigit((unsigned char)scs[i]) && !(i == 0 && scs[i] == '-')) { ok = false; break; }
-        }
-        if (ok) s = atoi(scs.c_str());
+
+        int s = atoi(scs.c_str());
         scores[count] = s;
         count++;
     }
     in.close();
 
-    // selection sort by score descending (simple)
+    // Sort by score (descending)
     for (int i = 0; i < count - 1; i++) {
         int best = i;
         for (int j = i + 1; j < count; j++) {
             if (scores[j] > scores[best]) best = j;
         }
         if (best != i) {
-            // swap name, score, time
             string tn = names[i]; names[i] = names[best]; names[best] = tn;
             int ts = scores[i]; scores[i] = scores[best]; scores[best] = ts;
+            scores[best] = ts;
             string tt = times[i]; times[i] = times[best]; times[best] = tt;
         }
     }
@@ -284,6 +313,8 @@ void showHighScoresSimple() {
 }
 
 // ---------- LOGGING ----------
+
+// Appends a simple log entry for each quiz run
 void logQuizRun(const string &name, const string &cat, char d, int score, int c, int w) {
     ofstream out(logsFile.c_str(), ios::app);
     if (!out) return;
@@ -293,6 +324,8 @@ void logQuizRun(const string &name, const string &cat, char d, int score, int c,
 }
 
 // ---------- SAVE / LOAD GAME ----------
+
+// Writes a minimal save file containing current progress and lifelines
 void saveGameSimple(const SaveData &s) {
     ofstream out(saveFile.c_str());
     if (!out) return;
@@ -311,6 +344,7 @@ void saveGameSimple(const SaveData &s) {
     out.close();
 }
 
+// Loads save file into SaveData structure; returns false if no save
 bool loadGameSimple(SaveData &s) {
     if (!fileExistsSimple(saveFile)) return false;
     ifstream in(saveFile.c_str());
@@ -357,30 +391,31 @@ bool loadGameSimple(SaveData &s) {
     return true;
 }
 
+// Removes the save file (called when quiz completes)
 void clearSaveSimple() {
     if (fileExistsSimple(saveFile)) remove(saveFile.c_str());
 }
 
-// ---------- GET PENALTY and TIME ----------
+// ---------- PENALTY and TIME HELPERS ----------
+
+// Returns penalty based on difficulty character
 int getPenaltySimple(char d) {
     if (d == 'E') return penEasy;
     if (d == 'M') return penMed;
     return penHard;
 }
+
+// Returns time limit (seconds) based on difficulty
 int getTimeLimitSimple(char d) {
     if (d == 'E') return timeEasy;
     if (d == 'M') return timeMed;
     return timeHard;
 }
 
-// ---------- ASK ONE QUESTION ----------
-// returns codes:
-// 1 => correct
-// 0 => wrong
-// -1 => timeout
-// 2 => skip
-// 3 => replace
-// 4 => no answer / invalid
+// ---------- ASK SINGLE QUESTION ----------
+
+// Presents one question, handles lifelines and timing, returns a code:
+// 1 => correct, 0 => wrong, -1 => timeout, 2 => skip, 3 => replace, 4 => invalid/no answer
 int askQuestionSimple(Question q, LifeLines &life, int &streak) {
     cout << "Q: " << q.text << endl;
     cout << "A) " << q.A << endl;
@@ -388,6 +423,7 @@ int askQuestionSimple(Question q, LifeLines &life, int &streak) {
     cout << "C) " << q.C << endl;
     cout << "D) " << q.D << endl;
 
+    // show available lifelines
     cout << "Lifelines: ";
     if (!life.used5050) cout << "[1]50/50 ";
     if (!life.usedSkip) cout << "[2]Skip ";
@@ -405,16 +441,15 @@ int askQuestionSimple(Question q, LifeLines &life, int &streak) {
     time_t now = time(NULL);
     int used = (int)difftime(now, start);
 
-    // lifeline pick: if input is digit
+    // If lifeline chosen (numeric input)
     if (inp.length() > 0 && isdigit((unsigned char)inp[0])) {
         char c = inp[0];
         if (c == '1' && !life.used5050) {
             life.used5050 = true;
-            // show correct option and one wrong
+            // basic 50/50 display: show correct and first wrong
             cout << "50/50 used. Showing correct option and one wrong option:" << endl;
             if (q.correct == 'A') cout << "A) " << q.A << endl;
             else cout << "A) " << q.A << endl;
-            // show first wrong found besides correct
             for (char x = 'A'; x <= 'D'; x++) {
                 if (x != q.correct) {
                     cout << x << ") ";
@@ -441,13 +476,14 @@ int askQuestionSimple(Question q, LifeLines &life, int &streak) {
         }
         else if (c == '4' && !life.usedExtra) {
             life.usedExtra = true;
-            limit += 10; // extra 10 seconds
+            limit += 10; // grant +10 seconds
             cout << "Extra time granted. Enter answer: ";
             if (!getline(cin, inp)) inp = "";
             used = 0;
         }
     }
 
+    // Check timeout after lifeline handling
     if (used > limit) {
         cout << "Time up!" << endl;
         return -1;
@@ -473,9 +509,12 @@ int askQuestionSimple(Question q, LifeLines &life, int &streak) {
     }
 }
 
-// ---------- START NEW QUIZ ----------
+// ---------- START A NEW QUIZ SESSION ----------
+
+// Orchestrates a full quiz play session (loads questions, shuffles,
+// applies lifelines, tracks score, saves progress, and finishes)
 void startQuizSimple(const string &player, const string &cat, char diff) {
-    // load questions for this category
+    // load all questions for the category
     Question pool[MAX_QUESTIONS];
     int total = loadQuestionsFromFile(cat, pool, MAX_QUESTIONS);
     if (total == 0) {
@@ -483,7 +522,7 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
         return;
     }
 
-    // pick only those with required difficulty
+    // filter questions by difficulty
     Question pick[MAX_PLAY_QUESTIONS];
     int pickCount = 0;
     for (int i = 0; i < total; i++) {
@@ -499,14 +538,15 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
         return;
     }
 
-    // shuffle pick[] - use rand; record seed so resume can reconstruct
+    // shuffle the chosen questions and record seed for resume
     unsigned long seedVal = (unsigned long)time(NULL);
     srand((unsigned int)seedVal);
     simpleShuffle(pick, pickCount);
 
     int totalQ = pickCount;
-    if (totalQ > 10) totalQ = 10; // play up to 10 questions
+    if (totalQ > 10) totalQ = 10; // limit to 10 questions per play
 
+    // initialize lifelines and counters
     LifeLines life;
     life.used5050 = false;
     life.usedSkip = false;
@@ -518,7 +558,7 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
     int wrong = 0;
     int streak = 0;
 
-    // prepare save data and save initial
+    // prepare and save initial save data (so resume works)
     SaveData sd;
     sd.playerName = player;
     sd.categoryName = cat;
@@ -531,7 +571,7 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
     sd.life = life;
     saveGameSimple(sd);
 
-    // main loop
+    // main question loop
     int i = 0;
     while (i < totalQ) {
         cout << endl << "Question " << (i + 1) << " of " << totalQ << endl;
@@ -549,24 +589,23 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
             i++;
         }
         else if (res == 2) {
-            // skip: just move to next question, do not re-add
+            // skip: just advance
             i++;
         }
         else if (res == 3) {
-            // replace: move this question to end of play list
+            // replace: send this question to end of play list
             if (totalQ < MAX_PLAY_QUESTIONS) {
-                // copy current question to end and increase totalQ
                 pick[totalQ] = pick[i];
                 totalQ++;
             }
-            // remove current question by shifting left from i+1 to end-1
+            // shift left to remove current
             for (int s = i; s < totalQ - 1; s++) {
                 pick[s] = pick[s + 1];
             }
-            // do not increment i because now pick[i] is the next question after shift
+            // do not increment i (new question now at i)
         }
         else {
-            // invalid / no answer: treat as wrong with no penalty? Here we just move on.
+            // invalid / no answer: move on without penalty
             i++;
         }
 
@@ -579,6 +618,7 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
         saveGameSimple(sd);
     }
 
+    // finalization: report results, save high score, log, and clear save
     cout << endl << "Final Score: " << score << endl;
     cout << "Correct: " << correct << "  Wrong: " << wrong << endl;
 
@@ -589,7 +629,9 @@ void startQuizSimple(const string &player, const string &cat, char diff) {
     cout << "Quiz completed." << endl;
 }
 
-// ---------- RESUME QUIZ ----------
+// ---------- RESUME SAVED QUIZ ----------
+
+// Loads save file, reconstructs shuffle using stored seed, and continues
 void resumeQuizSimple() {
     SaveData sd;
     if (!loadGameSimple(sd)) {
@@ -598,11 +640,11 @@ void resumeQuizSimple() {
     }
     cout << "Resuming quiz for " << sd.playerName << " in " << sd.categoryName << " difficulty " << sd.diff << endl;
 
-    // load questions
+    // load category questions
     Question pool[MAX_QUESTIONS];
     int total = loadQuestionsFromFile(sd.categoryName, pool, MAX_QUESTIONS);
 
-    // filter by difficulty into pick
+    // filter by difficulty into pick[]
     Question pick[MAX_PLAY_QUESTIONS];
     int pickCount = 0;
     for (int i = 0; i < total; i++) {
@@ -618,7 +660,7 @@ void resumeQuizSimple() {
         return;
     }
 
-    // reconstruct same shuffle using stored seed
+    // reconstruct shuffle using seed stored in save
     srand((unsigned int)sd.seedValue);
     simpleShuffle(pick, pickCount);
 
@@ -631,7 +673,7 @@ void resumeQuizSimple() {
     int streak = 0;
     LifeLines life = sd.life;
 
-    int i = sd.index; // resume from this index
+    int i = sd.index; // resume index
     while (i < totalQ) {
         cout << endl << "Question " << (i + 1) << " of " << totalQ << endl;
         int res = askQuestionSimple(pick[i], life, streak);
@@ -672,7 +714,9 @@ void resumeQuizSimple() {
     clearSaveSimple();
 }
 
-// ---------- ADD QUESTION ----------
+// ---------- ADD QUESTION INTERFACE ----------
+
+// Allows user to append a new question to a category file
 void addQuestionSimple() {
     cout << "Select category to add question:" << endl;
     for (int i = 0; i < MAX_CATEGORIES; i++) {
@@ -684,11 +728,13 @@ void addQuestionSimple() {
     cin.ignore(1000, '\n');
     if (ch < 1 || ch > MAX_CATEGORIES) { cout << "Invalid." << endl; return; }
     int idx = ch - 1;
+
     cout << "Enter difficulty (E/M/H): ";
     char d;
     cin >> d; cin.ignore(1000, '\n');
     d = upchar(d);
     if (d != 'E' && d != 'M' && d != 'H') d = 'E';
+
     cout << "Enter question text:" << endl;
     string q; getline(cin, q);
     cout << "Option A: "; string A; getline(cin, A);
@@ -715,7 +761,8 @@ void addQuestionSimple() {
     cout << "Question added to " << categories[idx] << ".txt" << endl;
 }
 
-// ---------- PICK CATEGORY ----------
+// ---------- PICK CATEGORY / DIFFICULTY HELPERS ----------
+
 int pickCategorySimple() {
     cout << "Categories:" << endl;
     for (int i = 0; i < MAX_CATEGORIES; i++) {
@@ -729,7 +776,6 @@ int pickCategorySimple() {
     return -1;
 }
 
-// ---------- PICK DIFFICULTY ----------
 char pickDiffSimple() {
     cout << "Difficulty:" << endl;
     cout << "1) Easy" << endl;
@@ -745,11 +791,12 @@ char pickDiffSimple() {
 }
 
 // ---------- MAIN MENU ----------
+
 int main() {
-    // seed random
+    // seed random once at program start (not used for per-quiz deterministic seed)
     srand((unsigned int)time(NULL));
 
-    // make sample files if missing
+    // ensure sample files exist so menu options work immediately
     makeSampleFilesIfMissing();
 
     while (true) {
@@ -798,4 +845,6 @@ int main() {
 
     return 0;
 }
+
+
 
