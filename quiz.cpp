@@ -445,25 +445,31 @@ int askQuestionSimple(Question q, LifeLines &life, int &streak) {
     if (inp.length() > 0 && isdigit((unsigned char)inp[0])) {
         char c = inp[0];
         if (c == '1' && !life.used5050) {
-            life.used5050 = true;
-            // basic 50/50 display: show correct and first wrong
-            cout << "50/50 used. Showing correct option and one wrong option:" << endl;
-            if (q.correct == 'A') cout << "A) " << q.A << endl;
-            else cout << "A) " << q.A << endl;
-            for (char x = 'A'; x <= 'D'; x++) {
-                if (x != q.correct) {
-                    cout << x << ") ";
-                    if (x == 'A') cout << q.A << endl;
-                    if (x == 'B') cout << q.B << endl;
-                    if (x == 'C') cout << q.C << endl;
-                    if (x == 'D') cout << q.D << endl;
-                    break;
-                }
-            }
-            cout << "Enter answer (A-D): ";
-            if (!getline(cin, inp)) inp = "";
-            used = 0;
-        }
+    life.used5050 = true;
+    cout << "50/50 used. Showing correct option and one wrong option:" << endl;
+
+    // Print the correct option first
+    char corr = q.correct;
+    if (corr == 'A') cout << "A) " << q.A << endl;
+    else if (corr == 'B') cout << "B) " << q.B << endl;
+    else if (corr == 'C') cout << "C) " << q.C << endl;
+    else if (corr == 'D') cout << "D) " << q.D << endl;
+
+    // Then print the first wrong option that is not the correct one
+    for (char x = 'A'; x <= 'D'; x++) {
+        if (x == corr) continue;
+        if (x == 'A') cout << "A) " << q.A << endl;
+        else if (x == 'B') cout << "B) " << q.B << endl;
+        else if (x == 'C') cout << "C) " << q.C << endl;
+        else if (x == 'D') cout << "D) " << q.D << endl;
+        break;
+    }
+
+    cout << "Enter answer (A-D): ";
+    if (!getline(cin, inp)) inp = "";
+    used = 0;
+}
+
         else if (c == '2' && !life.usedSkip) {
             life.usedSkip = true;
             cout << "Skipped." << endl;
@@ -845,6 +851,8 @@ int main() {
 
     return 0;
 }
+
+
 
 
 
