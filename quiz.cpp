@@ -1,9 +1,6 @@
 // quiz.cpp
-// Beginner-friendly Quiz Game
-// All features included but written in very simple C++ (no vectors, no algorithm, no chrono, no pointers).
+// Quiz Game
 // Uses arrays, structs, simple loops, time(), rand(), file I/O.
-// Uses endl instead of \n everywhere.
-// Author: (You can write your name here)
 
 #include <iostream>
 #include <fstream>
@@ -801,3 +798,4 @@ int main() {
 
     return 0;
 }
+
